@@ -151,3 +151,7 @@ navigations.forEach((nav) => {
 
   navigationsEl.append(mapEl);
 });
+
+// FOOTER / COPYRIGHT-YEAR
+const thisYear = document.querySelector("span.this-year");
+thisYear.textContent = new Date().getFullYear();
