@@ -65,3 +65,17 @@ function hideSearch() {
   searchDelay.reverse();
   searchInput.value = "";
 }
+
+// 요소의 가시성 관찰 (보이는지 안보이는지 확인)
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) {
+      return;
+    }
+    entry.target.classList.add("show");
+  });
+});
+// 관찰할 대상 설정
+const infos = document.querySelectorAll(".info");
+// 관찰 시작
+infos.forEach((el) => io.observe(el));
