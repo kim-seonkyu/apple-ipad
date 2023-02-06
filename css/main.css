@@ -252,7 +252,7 @@ a.link::after {
 
 /* HEADER */
 header {
-  --header-height: var(--header-height);
+  --header-height: 44px;
   background-color: var(--color-header);
   position: relative;
   z-index: 9;
