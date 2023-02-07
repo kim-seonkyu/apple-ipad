@@ -40,12 +40,15 @@ const searchInput = searchWrap.querySelector("input");
 const searchDelay = [...searchWrap.querySelectorAll("li")];
 
 searchStarter.addEventListener("click", showSearch);
-searchCloser.addEventListener("click", hideSearch);
+searchCloser.addEventListener("click", function (event) {
+  event.stopPropagation();
+  hideSearch();
+});
 searchShadow.addEventListener("click", hideSearch);
 
 function showSearch() {
   header.classList.add("searching");
-  document.documentElement.classList.add("fixed");
+  stopScroll();
   headerMenus.reverse().forEach(function (data, index) {
     data.style.transitionDelay = (index * 0.4) / headerMenus.length + "s";
   });
@@ -58,7 +61,7 @@ function showSearch() {
 }
 function hideSearch() {
   header.classList.remove("searching");
-  document.documentElement.classList.remove("fixed");
+  playScroll();
   headerMenus.reverse().forEach(function (data, index) {
     data.style.transitionDelay = (index * 0.4) / headerMenus.length + "s";
   });
@@ -68,6 +71,49 @@ function hideSearch() {
   searchDelay.reverse();
   searchInput.value = "";
 }
+
+// Scroll 가능
+function playScroll() {
+  document.documentElement.classList.remove("fixed");
+}
+// Scroll 불가능
+function stopScroll() {
+  document.documentElement.classList.add("fixed");
+}
+
+// 헤데 메뉴 토글
+const menuStarter = document.querySelector("header .menu-starter");
+menuStarter.addEventListener("click", function () {
+  if (header.classList.contains("menuing")) {
+    header.classList.remove("menuing");
+    searchInput.value = "";
+    playScroll();
+  } else {
+    header.classList.add("menuing");
+    stopScroll();
+  }
+});
+
+// 헤더 검색
+const searchTextField = document.querySelector("header .textfield");
+const searchCancel = document.querySelector("header .search-canceler");
+
+searchTextField.addEventListener("click", function () {
+  header.classList.add("searching--mobile");
+  searchInput.focus();
+});
+searchCancel.addEventListener("click", function () {
+  header.classList.remove("searching--mobile");
+});
+
+//
+window.addEventListener("resize", function () {
+  if (this.window.innerWidth <= 740) {
+    header.classList.remove("searching");
+  } else {
+    header.classList.remove("searching--mobile");
+  }
+});
 
 // 요소의 가시성 관찰 (보이는지 안보이는지 확인)
 const io = new IntersectionObserver((entries) => {
