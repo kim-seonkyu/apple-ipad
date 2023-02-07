@@ -106,7 +106,7 @@ searchCancel.addEventListener("click", function () {
   header.classList.remove("searching--mobile");
 });
 
-//
+// resize error fix
 window.addEventListener("resize", function () {
   if (this.window.innerWidth <= 740) {
     header.classList.remove("searching");
@@ -114,6 +114,31 @@ window.addEventListener("resize", function () {
     header.classList.remove("searching--mobile");
   }
 });
+
+// nav toggle mobile
+const nav = document.querySelector("nav");
+const navMenuToggle = nav.querySelector(".menu-toggler");
+const navShadow = nav.querySelector(".shadow");
+
+navMenuToggle.addEventListener("click", function () {
+  if (nav.classList.contains("menuing")) {
+    hideNavMenu();
+  } else {
+    showNavMenu();
+  }
+});
+nav.addEventListener("click", function (event) {
+  event.stopPropagation();
+});
+navShadow.addEventListener("click", hideNavMenu);
+window.addEventListener("click", hideNavMenu);
+
+function showNavMenu() {
+  nav.classList.add("menuing");
+}
+function hideNavMenu() {
+  nav.classList.remove("menuing");
+}
 
 // 요소의 가시성 관찰 (보이는지 안보이는지 확인)
 const io = new IntersectionObserver((entries) => {
