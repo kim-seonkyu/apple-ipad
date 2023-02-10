@@ -1103,7 +1103,7 @@ main {
   .power .multiple-apps figure img {
     width: 682px;
   }
-  .power .multiple-apps figure figcaption {
+  .power .multiple-apps figcaption {
     transform: scale(0.8) translate(532px, -58px);
   }
   .power .arcade {
